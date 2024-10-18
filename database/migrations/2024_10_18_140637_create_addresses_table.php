@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Island;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,11 +11,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('islands', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('atoll');
-            $table->string('name');
-            $table->unique(['atoll', 'name']);
+            $table->string('num');
+            $table->string('apartment')->nullable();
+            $table->string('street');
+            $table->foreignIdFor(Island::class);
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('islands');
+        Schema::dropIfExists('addresses');
     }
 };
