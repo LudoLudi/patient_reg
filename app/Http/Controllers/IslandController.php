@@ -43,7 +43,23 @@ class IslandController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'atoll' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+        ]);
+
+        $island = Island::find($id);
+        if (!$island) {
+            return response()->json(['message' => 'Island not found'], 404);
+        }
+
+        $island->fill($request->all());
+        $island->save();
+
+        return response()->json([
+            'message' => 'Island updated successfully',
+            'data' => $island
+        ], 200);
     }
 
     /**
@@ -51,6 +67,13 @@ class IslandController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $island = Island::find($id);
+        if (!$island) {
+            return response()->json(['message' => 'Island not found'], 404);
+        }
+
+        $island->delete();
+
+        return response()->json(['message' => 'Island deleted successfully'], 200);
     }
 }
