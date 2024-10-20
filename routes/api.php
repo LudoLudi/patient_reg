@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IslandController;
+use App\Http\Controllers\AddressController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -15,3 +16,6 @@ Route::get('/hello', function () {
 
 // IslandController
 Route::apiResource('islands', IslandController::class);
+
+// AddressController
+Route::apiResource('address', AddressController::class);
