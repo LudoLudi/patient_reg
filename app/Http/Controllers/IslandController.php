@@ -40,7 +40,6 @@ class IslandController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        // Update the island with the validated data
         $island->update($request->all());
 
         return response()->json([
