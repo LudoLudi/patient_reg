@@ -8,17 +8,13 @@ use Illuminate\Http\Request;
 
 class IslandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // GET
     public function index()
     {
         return Island::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // POST
     public function store(Request $request)
     {
         $island = new Island();
@@ -30,31 +26,22 @@ class IslandController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // GET by id
     public function show(string $id)
     {
         return Island::find($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // PUT
+    public function update(Request $request, Island $island)
     {
         $request->validate([
             'atoll' => 'required|string|max:255',
             'name' => 'required|string|max:255',
         ]);
 
-        $island = Island::find($id);
-        if (!$island) {
-            return response()->json(['message' => 'Island not found'], 404);
-        }
-
-        $island->fill($request->all());
-        $island->save();
+        // Update the island with the validated data
+        $island->update($request->all());
 
         return response()->json([
             'message' => 'Island updated successfully',
@@ -62,9 +49,7 @@ class IslandController extends Controller
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // DELETE
     public function destroy(string $id)
     {
         $island = Island::find($id);
